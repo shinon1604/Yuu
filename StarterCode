@@ -1,0 +1,94 @@
+/*
+ * Do not change the name of the fields or methods in Poly. 
+ * Also do not add any additional fields to the class.
+ */
+
+public class Poly {
+	private double coeff[];
+
+	public Poly() {
+		coeff = new double[0]; // degree -1
+	}
+
+	public int getDegree() {
+		return this.coeff.length - 1;
+	}
+
+	public double getCoeff(int n) {
+		return (n >= 0 && n <= this.getDegree()) ? this.coeff[n] : 0.0;
+	}
+
+	public void setCoeff(int n, double value) {
+		if (n < 0)
+			throw new ArithmeticException("Negative power: " + n);
+
+		if (n > this.getDegree()) {
+			// Make the array bigger!
+			double temp[] = new double[n + 1];
+			// Copy existing coefficients into temp
+			for (int i = 0; i <= this.getDegree(); i++)
+				temp[i] = this.coeff[i];
+			// Trash old coefficients array
+			this.coeff = temp;
+		}
+
+		coeff[n] = value;
+
+		// if terms with largest exponents are 0, decrease degree
+		int degree = this.getDegree();
+		while (degree >= 0 && this.coeff[degree] == 0.0)
+			degree--;
+
+		if (degree < this.getDegree()) {
+			// Make the array smaller!
+			double temp[] = new double[degree + 1];
+			// Copy existing coefficients into temp
+			for (int i = 0; i <= degree; i++)
+				temp[i] = this.coeff[i];
+			// Trash old coefficients array
+			this.coeff = temp;
+		}
+	}
+
+	public Poly termMult(double coeff, int exp) {
+		Poly newPoly = new Poly();
+		for (int i = this.getDegree(); i >= 0; i--) {
+			double c = this.getCoeff(i) * coeff;
+			int e = i + exp;
+			newPoly.setCoeff(e, c);
+		}
+		return newPoly;
+	}
+
+	public Poly add(Poly p2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Poly negative() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Poly sub(Poly p2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public double evaluate(double x) {
+		// TODO Auto-generated method stub
+		return 0.0;
+	}
+
+	public String toString() {
+		// TODO Auto-generated method stub
+		// Using the polynomial shown in the Homework post, 
+		// output it like this:
+		// 4x^5 +2x^4 + 3x^2 - 4x + 5
+		// i.e. no x^0 or x^1, one sign 
+		// between terms, no 0 coefficient terms.
+		
+		return "I am a polynomial";
+	}
+
+}
